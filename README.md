@@ -1,33 +1,26 @@
-# 🧬 Bio Health Data Explorer
+# Bio Health Data Explorer
 
-A responsive, modular dashboard to explore bio health data — starting with mock glucose readings. This project is designed to demonstrate front-end development skills for roles at companies like **Illumina**, **Thermo Fisher**, and **Dexcom**.
+A React + TypeScript application designed to explore and visualize Bio Health datasets. This project aims to provide an intuitive and responsive interface for analyzing key biological and health-related data.
 
----
+## Features
 
-## 🚀 Features
+- Modular React components built with TypeScript
+- Integration with mock Bio Health data APIs
+- Responsive design using Tailwind CSS
+- ESLint and Prettier configured for code quality and formatting
+- Unit and integration testing setup with Jest and React Testing Library
 
-- 📊 Data visualization (Recharts) for trends and health metrics
-- 📁 Load mock JSON data from local files
-- 🎯 Filter or segment by time, metric, or threshold
-- 🌙 Clean, responsive UI with Tailwind CSS
+## Getting Started
 
----
+### Prerequisites
 
-## 📦 Tech Stack
+- Node.js (v16 or higher)
+- npm or yarn package manager
 
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vite](https://vitejs.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Recharts](https://recharts.org/) – for data charts
+### Installation
 
----
+1. Clone the repository:
 
-## 🔧 Getting Started
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
+   ```bash
+   git clone https://github.com/SummerJyl/Data-Explore.git
+   cd Data-Explore
