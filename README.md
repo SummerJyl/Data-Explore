@@ -21,6 +21,9 @@ A React + TypeScript application designed to explore and visualize Bio Health da
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/SummerJyl/Data-Explore.git
-   cd Data-Explore
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
