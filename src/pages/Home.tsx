@@ -1,25 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import ChartCard from '../components/ChartCard';
+import { fetchFoodData } from '../api/usdaApi';
 
-interface GlucoseReading {
-  timestamp: string;
-  glucose: number;
-}
-
-const Home: React.FC = () => {
-  const [data, setData] = useState<GlucoseReading[]>([]);
+const Home = () => {
+  const [foods, setFoods] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/src/data/glucose-readings.json')
-      .then((res) => res.json())
-      .then(setData)
-      .catch(console.error);
+    async function getFoods() {
+      setLoading(true);
+      setError(null);
+      const results = await fetchFoodData('Vitamin D'); // or any query
+      if (results.length === 0) {
+        setError('No results found');
+      }
+      setFoods(results);
+      setLoading(false);
+    }
+
+    getFoods();
   }, []);
 
   return (
-    <main className="p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6">Bio Health Data Explorer</h1>
-      <ChartCard title="Glucose Levels Over Time" data={data} />
+    <main>
+      <h1>Bio Health Data Explorer</h1>
+
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+
+      <ul>
+        {foods.map((food) => (
+          <li key={food.fdcId}>
+            {food.description} - {food.dataType}
+          </li>
+        ))}
+      </ul>
     </main>
   );
 };
