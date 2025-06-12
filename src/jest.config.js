@@ -6,5 +6,6 @@ module.exports = {
       tsconfig: "tsconfig.json",
       babelConfig: "./babel.config.js"
     }
-  }
+  },
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 };

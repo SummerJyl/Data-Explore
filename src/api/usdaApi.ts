@@ -1,7 +1,9 @@
 const BASE_URL = 'https://api.nal.usda.gov/fdc/v1';
 
+export const apiKey = import.meta.env.VITE_USDA_API_KEY || 'test-api-key';
+
 export async function fetchFoodData(query: string) {
-  const apiKey = import.meta.env.VITE_USDA_API_KEY;
+  console.log('USDA API Key:', apiKey);
 
   const url = `${BASE_URL}/foods/search?api_key=${apiKey}&query=${encodeURIComponent(query)}&pageSize=5`;
 
