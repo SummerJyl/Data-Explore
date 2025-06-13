@@ -1,10 +1,23 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  background: white; /* or your desired background color */
+}
+
+body {
+  background-color: white; /* ensure body bg matches your app */
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  min-height: 100vh; /* fill viewport height */
+  background: white;
 }
 
+/* Then keep your existing styles below if you want */
 .logo {
   height: 6em;
   padding: 1.5em;
