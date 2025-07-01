@@ -1,7 +1,17 @@
+:root {
+  --color-bg: #fcfdfe;
+  --color-primary: #2c7a7b;
+  --color-secondary: #666;
+  --color-button-bg: #319795;
+  --color-button-hover: #2c7a7b;
+}
+
 html, body, #root {
   height: 100%;
   margin: 0;
-  background: white; /* or your desired background color */
+  background: #fcfdfe; /* soft off-white */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333; /* dark charcoal */
 }
 
 body {
@@ -10,11 +20,24 @@ body {
 
 #root {
   max-width: 1280px;
+  padding: 2rem;
+  margin: 0 auto;
+  text-align: center;
+  min-height: 100vh;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+  border-radius: 8px;
+}
+
+#root {
+  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  min-height: 100vh; /* fill viewport height */
+  min-height: 100vh;
   background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+  border-radius: 8px;
 }
 
 /* Then keep your existing styles below if you want */
