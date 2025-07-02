@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  background: linear-gradient(135deg, #1f1f1f, #121212);
-  color: #eee;
+  background: #ddd;
+  color: #222;
   font-family: 'Inter', system-ui, sans-serif;
   min-height: 100vh;
   display: flex;
@@ -33,9 +33,9 @@ input[type="text"], input[type="search"] {
 }
 
 input[type="text"]:focus, input[type="search"]:focus {
-  border-color: #ff6f91;
+  border-color: 3178c6;
   outline: none;
-  box-shadow: 0 0 8px #ff6f91aa;
+  box-shadow: 0 0 8px #3178c6aa;
 }
 
 h1, p {

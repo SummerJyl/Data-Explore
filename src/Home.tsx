@@ -1,81 +1,84 @@
-import { useState } from 'react';
-import { fetchFoodData } from './api/usdaApi'; // adjust path as needed
-
-interface FoodDetails {
-  fdcId: number;
-  description: string;
-}
-
-const nutrientOptions = [
-  'Protein',
-  'Fat',
-  'Carbs',
-  'Vitamins',
-  'Minerals',
-];
+import React, { useState } from 'react';
+import { fetchFoodData, fetchFoodDetails, FoodItem, NutrientDetail } from '../api/usdaApi';
+import NutrientChart from '../components/NutrientChart';
 
 const Home = () => {
-  const [query, setQuery] = useState('');
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-  const [results, setResults] = useState<FoodDetails[]>([]);
+  const [query, setQuery] = useState('Vitamin D');
+  const [foods, setFoods] = useState<FoodItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(10);
 
-  const toggleFilter = (nutrient: string) => {
-    setSelectedFilters(prev =>
-      prev.includes(nutrient)
-        ? prev.filter(f => f !== nutrient)
-        : [...prev, nutrient]
-    );
-  };
+  const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null);
+  const [selectedFoodNutrients, setSelectedFoodNutrients] = useState<NutrientDetail[]>([]);
 
-  const handleSearch = async () => {
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
     setLoading(true);
+    setError(null);
     try {
-      const response = await fetchFoodData(query, selectedFilters);
-      setResults(response || []);
-    } catch (error) {
-      console.error('Search failed:', error);
+      const results = await fetchFoodData(query);
+      if (results.length === 0) {
+        setError('No results found');
+      }
+      setFoods(results);
+      setSelectedFood(null); // Clear previous selection
+      setSelectedFoodNutrients([]);
+    } catch {
+      setError('An error occurred while fetching data.');
     } finally {
       setLoading(false);
     }
   };
 
+  const handleFoodClick = async (food: FoodItem) => {
+    setSelectedFood(food);
+    const nutrients = await fetchFoodDetails(food.fdcId);
+    setSelectedFoodNutrients(nutrients);
+  };
+
   return (
     <main>
       <h1>Bio Health Data Explorer</h1>
-      <p>Search nutritional info from the USDA food database.</p>
 
-      <div className="search-container">
+      <form onSubmit={handleSearch} className="search-container">
         <input
           type="text"
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="Search foods..."
         />
-        <button onClick={handleSearch}>Search</button>
-      </div>
+        <button type="submit">Search</button>
+      </form>
 
-      <div className="filters">
-        {nutrientOptions.map(nutrient => (
-          <label key={nutrient}>
-            <input
-              type="checkbox"
-              checked={selectedFilters.includes(nutrient)}
-              onChange={() => toggleFilter(nutrient)}
-            />
-            {nutrient}
-          </label>
+      {loading && <p>Loading...</p>}
+      {error && <p className="error">{error}</p>}
+
+      <div className="results-grid">
+        {foods.slice(0, visibleCount).map(food => (
+          <div
+            key={food.fdcId}
+            className="result-card"
+            onClick={() => handleFoodClick(food)}
+            style={{ cursor: 'pointer' }}
+          >
+            <h3>{food.description}</h3>
+            <p>FDC ID: {food.fdcId}</p>
+          </div>
         ))}
       </div>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul className="results-list">
-          {results.map((result: FoodDetails) => (
-            <li key={result.fdcId}>{result.description}</li>
-          ))}
-        </ul>
+      {visibleCount < foods.length && (
+        <button onClick={() => setVisibleCount(prev => prev + 10)}>
+          Show More
+        </button>
+      )}
+
+      {selectedFood && selectedFoodNutrients.length > 0 && (
+        <section className="nutrient-chart-container">
+          <h2>{selectedFood.description} - Nutrients</h2>
+          <NutrientChart nutrients={selectedFoodNutrients} />
+        </section>
       )}
     </main>
   );

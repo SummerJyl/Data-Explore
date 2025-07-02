@@ -1,5 +1,5 @@
 :root {
-  --color-bg: #fcfdfe;
+  --color-bg: #ddd;
   --color-primary: #2c7a7b;
   --color-secondary: #666;
   --color-button-bg: #319795;
@@ -85,30 +85,53 @@ input[type="text"] {
   box-sizing: border-box;
 }
 
-.results-list {
-  list-style: none;
-  padding: 0;
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  max-width: 960px;
   margin: 2rem auto;
-  color: #222;
-  font-size: 1rem;
-  font-weight: 500;
-  text-align: left;
-  max-width: 600px;
+  padding: 0 1rem;
 }
 
-.results-list li {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background: #f1f5f9; /* light blue-gray */
+.result-card {
+  background-color: #f7f9fa; /* light gray */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  color: #333;
+  transition: box-shadow 0.3s ease;
+}
+
+.result-card:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.result-card h3 {
+  color: #2c7a7b; /* teal/greenish */
+  margin-bottom: 0.5rem;
+}
+
+.result-card p {
+  color: #555; /* medium gray */
+  font-size: 0.9rem;
+}
+
+/* Buttons example */
+button {
+  background-color: #2c7a7b; /* teal */
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
   border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  transition: background 0.2s ease;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
-.results-list li:hover {
-  background: #e2e8f0; /* hover effect */
+button:hover {
+  background-color: #235e5f; /* darker teal */
 }
-
 
 /* Then keep your existing styles below if you want */
 .logo {

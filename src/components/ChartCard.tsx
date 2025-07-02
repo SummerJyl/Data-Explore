@@ -1,28 +1,35 @@
 import React from 'react';
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+
+interface Nutrient {
+  nutrientName: string;
+  value: number;
+  unitName: string;
+}
 
 interface ChartCardProps {
   title: string;
-  data: { timestamp: string; glucose: number }[];
+  data: Nutrient[];
 }
 
 const ChartCard: React.FC<ChartCardProps> = ({ title, data }) => {
+  // Prepare data for chart, filter only key nutrients or top nutrients, etc.
+  const chartData = data.map(n => ({
+    name: n.nutrientName,
+    value: n.value,
+    unit: n.unitName,
+  }));
+
   return (
-    <div className="bg-white shadow rounded p-4">
-      <h2 className="text-lg font-semibold mb-4">{title}</h2>
-      <ResponsiveContainer width="100%" height={250}>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis 
-            dataKey="timestamp" 
-            tickFormatter={(tick) => new Date(tick).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-          />
-          <YAxis domain={[60, 160]} />
-          <Tooltip labelFormatter={(label) => new Date(label).toLocaleString()} />
-          <Line type="monotone" dataKey="glucose" stroke="#3b82f6" strokeWidth={2} />
-        </LineChart>
+    <div>
+      <h3>{title}</h3>
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart data={chartData}>
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip formatter={(value: number, name: string, props) => `${value} ${props.payload.unit}`} />
+          <Bar dataKey="value" fill="#2c7a7b" />
+        </BarChart>
       </ResponsiveContainer>
     </div>
   );
