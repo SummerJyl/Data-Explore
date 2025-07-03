@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { fetchFoodData, fetchFoodDetails } from '../api/usdaApi';
-import type { FoodDetails, NutrientDetail } from '../api/usdaApi';
-import NutrientChart from '../components/NutrientChart';
+import { fetchFoodData, fetchFoodDetails } from './api/usdaApi';
+import type { FoodDetails, NutrientDetail } from './api/usdaApi';
+import NutrientChart from './components/NutrientChart';
 
 const Home = () => {
   const [query, setQuery] = useState('Vitamin D');
