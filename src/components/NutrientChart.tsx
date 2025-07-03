@@ -1,5 +1,14 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
+import CustomTooltip from './CustomTooltip';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+} from 'recharts';
 
 interface Nutrient {
   nutrientName: string;
@@ -12,9 +21,10 @@ interface NutrientChartProps {
 }
 
 const NutrientChart: React.FC<NutrientChartProps> = ({ nutrients }) => {
-  // Filter for some key nutrients you want to show
   const chartData = nutrients
-    .filter(n => ['Protein', 'Total lipid (fat)', 'Carbohydrate, by difference'].includes(n.nutrientName))
+    .filter(n =>
+      ['Protein', 'Total lipid (fat)', 'Carbohydrate, by difference'].includes(n.nutrientName)
+    )
     .map(n => ({
       name: n.nutrientName,
       value: n.value,
@@ -23,14 +33,19 @@ const NutrientChart: React.FC<NutrientChartProps> = ({ nutrients }) => {
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip formatter={(value: number, name: string, props) => [`${value} ${props.payload.unit}`, name]} />
-        <Bar dataKey="value" fill="#3182CE" />
-      </BarChart>
-    </ResponsiveContainer>
+  <BarChart
+    data={chartData}
+    margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+  >
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis dataKey="name" />
+    <YAxis />
+    <Tooltip content={<CustomTooltip />} />
+
+    <Bar dataKey="value" fill="#82ca9d" />
+  </BarChart>
+</ResponsiveContainer>
+
   );
 };
 

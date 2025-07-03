@@ -1,5 +1,7 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import CustomTooltip from './CustomTooltip';
+
 
 interface Nutrient {
   nutrientName: string;
@@ -27,7 +29,8 @@ const ChartCard: React.FC<ChartCardProps> = ({ title, data }) => {
         <BarChart data={chartData}>
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip formatter={(value: number, name: string, props) => `${value} ${props.payload.unit}`} />
+          <Tooltip content={<CustomTooltip />} />
+
           <Bar dataKey="value" fill="#2c7a7b" />
         </BarChart>
       </ResponsiveContainer>

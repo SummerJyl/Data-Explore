@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { fetchFoodData, fetchFoodDetails, FoodItem, NutrientDetail } from '../api/usdaApi';
+import { fetchFoodData, fetchFoodDetails } from '../api/usdaApi';
+import type { FoodDetails, NutrientDetail } from '../api/usdaApi';
 import NutrientChart from '../components/NutrientChart';
 
 const Home = () => {
   const [query, setQuery] = useState('Vitamin D');
-  const [foods, setFoods] = useState<FoodItem[]>([]);
+  const [foods, setFoods] = useState<FoodDetails[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(10);
-
-  const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null);
+  const [selectedFood, setSelectedFood] = useState<FoodDetails | null>(null);
   const [selectedFoodNutrients, setSelectedFoodNutrients] = useState<NutrientDetail[]>([]);
 
   const handleSearch = async (e: React.FormEvent) => {
@@ -22,7 +22,7 @@ const Home = () => {
         setError('No results found');
       }
       setFoods(results);
-      setSelectedFood(null); // Clear previous selection
+      setSelectedFood(null);
       setSelectedFoodNutrients([]);
     } catch {
       setError('An error occurred while fetching data.');
@@ -31,10 +31,14 @@ const Home = () => {
     }
   };
 
-  const handleFoodClick = async (food: FoodItem) => {
+  const handleFoodClick = async (food: FoodDetails) => {
     setSelectedFood(food);
-    const nutrients = await fetchFoodDetails(food.fdcId);
-    setSelectedFoodNutrients(nutrients);
+    try {
+      const nutrients = await fetchFoodDetails(food.fdcId);
+      setSelectedFoodNutrients(nutrients);
+    } catch {
+      setError('Failed to fetch nutrient details.');
+    }
   };
 
   return (
@@ -69,7 +73,7 @@ const Home = () => {
       </div>
 
       {visibleCount < foods.length && (
-        <button onClick={() => setVisibleCount(prev => prev + 10)}>
+        <button onClick={() => setVisibleCount(prev => Math.min(prev + 10, foods.length))}>
           Show More
         </button>
       )}
