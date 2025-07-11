@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { fetchFoodData } from '../api/usdaApi';
+import FoodCard from '../components/FoodCard';  // ✅ Valid import here
+
 
 interface FoodItem {
   fdcId: number;
   description: string;
-  dataType?: string; // optional, since USDA results may not always include this
+  dataType: string;
 }
 
 const nutrientOptions = ['Protein', 'Fat', 'Carbs', 'Vitamins', 'Minerals'];
@@ -34,13 +36,12 @@ const Home = () => {
       if (results.length === 0) {
         setError('No results found.');
       }
-      // Map results to FoodItem type, add default dataType if missing
       setFoods(results.map(item => ({
         fdcId: item.fdcId,
         description: item.description,
-        dataType: (item as any).dataType || 'Unknown',
+        dataType: item.dataType || 'Unknown',
       })));
-      setVisibleCount(10); // reset visible count on new search
+      setVisibleCount(10);
     } catch (err) {
       setError('An error occurred while fetching data.');
       console.error(err);
@@ -83,22 +84,20 @@ const Home = () => {
 
       {!loading && !error && (
         <>
-          <div className="results-grid" style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
+          <div
+            className="results-grid"
+            style={{
+              display: 'grid',
+              gap: '1rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            }}
+          >
             {foods.slice(0, visibleCount).map(food => (
-              <div
+              <FoodCard
                 key={food.fdcId}
-                className="result-card"
-                style={{
-                  border: '1px solid #ccc',
-                  borderRadius: '6px',
-                  padding: '1rem',
-                  background: '#f9f9f9',
-                }}
-              >
-                <h3>{food.description}</h3>
-                <p><strong>FDC ID:</strong> {food.fdcId}</p>
-                <p><strong>Data Type:</strong> {food.dataType}</p>
-              </div>
+                food={food}
+                selectedFilters={selectedFilters}
+              />
             ))}
           </div>
 
