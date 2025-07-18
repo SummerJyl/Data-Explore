@@ -16,10 +16,11 @@ body {
   background-color: #2a2a2a;
   border-radius: 12px;
   padding: 2rem 2.5rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
-input[type="text"], input[type="search"] {
+input[type='text'],
+input[type='search'] {
   width: 100%;
   padding: 0.75rem 1rem;
   margin-top: 0.5rem;
@@ -32,13 +33,14 @@ input[type="text"], input[type="search"] {
   transition: border-color 0.3s;
 }
 
-input[type="text"]:focus, input[type="search"]:focus {
+input[type='text']:focus,
+input[type='search']:focus {
   border-color: 3178c6;
   outline: none;
   box-shadow: 0 0 8px #3178c6aa;
 }
 
-h1, p {
+h1,
+p {
   margin-bottom: 1.5rem;
 }
-

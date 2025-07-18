@@ -44,5 +44,3 @@ Use quotes or escape spaces in folder names when navigating via terminal.
 Ensure the correct package.json and config files are being used by the dev server.
 
 Vite’s base path (--base) can cause unexpected 404s if misconfigured or overridden.
-
-

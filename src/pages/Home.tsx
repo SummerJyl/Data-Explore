@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { fetchFoodData } from '../api/usdaApi';
-import FoodCard from '../components/FoodCard';  // ✅ Valid import here
-
+import FoodCard from '../components/FoodCard'; // ✅ Valid import here
 
 interface FoodItem {
   fdcId: number;
@@ -20,10 +19,8 @@ const Home = () => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
   const toggleFilter = (nutrient: string) => {
-    setSelectedFilters(prev =>
-      prev.includes(nutrient)
-        ? prev.filter(f => f !== nutrient)
-        : [...prev, nutrient]
+    setSelectedFilters((prev) =>
+      prev.includes(nutrient) ? prev.filter((f) => f !== nutrient) : [...prev, nutrient],
     );
   };
 
@@ -36,11 +33,13 @@ const Home = () => {
       if (results.length === 0) {
         setError('No results found.');
       }
-      setFoods(results.map(item => ({
-        fdcId: item.fdcId,
-        description: item.description,
-        dataType: item.dataType || 'Unknown',
-      })));
+      setFoods(
+        results.map((item) => ({
+          fdcId: item.fdcId,
+          description: item.description,
+          dataType: item.dataType || 'Unknown',
+        })),
+      );
       setVisibleCount(10);
     } catch (err) {
       setError('An error occurred while fetching data.');
@@ -59,14 +58,14 @@ const Home = () => {
         <input
           type="text"
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
           placeholder="Search foods..."
         />
         <button type="submit">Search</button>
       </form>
 
       <div className="filters">
-        {nutrientOptions.map(nutrient => (
+        {nutrientOptions.map((nutrient) => (
           <label key={nutrient} style={{ marginRight: '1rem', cursor: 'pointer' }}>
             <input
               type="checkbox"
@@ -92,18 +91,14 @@ const Home = () => {
               gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
             }}
           >
-            {foods.slice(0, visibleCount).map(food => (
-              <FoodCard
-                key={food.fdcId}
-                food={food}
-                selectedFilters={selectedFilters}
-              />
+            {foods.slice(0, visibleCount).map((food) => (
+              <FoodCard key={food.fdcId} food={food} selectedFilters={selectedFilters} />
             ))}
           </div>
 
           {visibleCount < foods.length && (
             <button
-              onClick={() => setVisibleCount(prev => prev + 10)}
+              onClick={() => setVisibleCount((prev) => prev + 10)}
               style={{
                 marginTop: '1rem',
                 padding: '0.5rem 1rem',

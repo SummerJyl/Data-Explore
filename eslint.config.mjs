@@ -35,10 +35,7 @@ export default tseslint.config(
     rules: {
       ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'react/react-in-jsx-scope': 'off',
       'filename-rules/match': [
         'error',
@@ -52,5 +49,5 @@ export default tseslint.config(
         },
       ],
     },
-  }
+  },
 );

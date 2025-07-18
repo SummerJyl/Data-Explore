@@ -2,7 +2,6 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import CustomTooltip from './CustomTooltip';
 
-
 interface Nutrient {
   nutrientName: string;
   value: number;
@@ -16,7 +15,7 @@ interface ChartCardProps {
 
 const ChartCard: React.FC<ChartCardProps> = ({ title, data }) => {
   // Prepare data for chart, filter only key nutrients or top nutrients, etc.
-  const chartData = data.map(n => ({
+  const chartData = data.map((n) => ({
     name: n.nutrientName,
     value: n.value,
     unit: n.unitName,

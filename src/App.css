@@ -6,16 +6,20 @@
   --color-button-hover: #2c7a7b;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   color: var(--color-primary);
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
-  background:var(--color-bg);
+  background: var(--color-bg);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  var(--color-primary);
+  color: var(--color-primary);
 }
 
 body {
@@ -51,7 +55,7 @@ button:hover {
   user-select: none;
 }
 
-.filters input[type="checkbox"] {
+.filters input[type='checkbox'] {
   margin-right: 0.5rem;
   cursor: pointer;
 }
@@ -75,7 +79,7 @@ button:hover {
   flex-wrap: wrap;
 }
 
-input[type="text"] {
+input[type='text'] {
   width: 100%;
   max-width: 400px;
   padding: 0.75rem 1rem;
@@ -97,14 +101,14 @@ input[type="text"] {
 .result-card {
   background-color: #f7f9fa; /* light gray */
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   color: #333;
   transition: box-shadow 0.3s ease;
 }
 
 .result-card:hover {
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .result-card h3 {

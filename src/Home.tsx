@@ -49,7 +49,7 @@ const Home = () => {
         <input
           type="text"
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
           placeholder="Search foods..."
         />
         <button type="submit">Search</button>
@@ -59,7 +59,7 @@ const Home = () => {
       {error && <p className="error">{error}</p>}
 
       <div className="results-grid">
-        {foods.slice(0, visibleCount).map(food => (
+        {foods.slice(0, visibleCount).map((food) => (
           <div
             key={food.fdcId}
             className="result-card"
@@ -73,7 +73,7 @@ const Home = () => {
       </div>
 
       {visibleCount < foods.length && (
-        <button onClick={() => setVisibleCount(prev => Math.min(prev + 10, foods.length))}>
+        <button onClick={() => setVisibleCount((prev) => Math.min(prev + 10, foods.length))}>
           Show More
         </button>
       )}

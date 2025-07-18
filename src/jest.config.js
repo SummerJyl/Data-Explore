@@ -1,11 +1,11 @@
 module.exports = {
-  preset: "ts-jest/presets/js-with-babel",
-  testEnvironment: "jsdom",
+  preset: 'ts-jest/presets/js-with-babel',
+  testEnvironment: 'jsdom',
   globals: {
-    "ts-jest": {
-      tsconfig: "tsconfig.json",
-      babelConfig: "./babel.config.js"
-    }
+    'ts-jest': {
+      tsconfig: 'tsconfig.json',
+      babelConfig: './babel.config.js',
+    },
   },
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 };

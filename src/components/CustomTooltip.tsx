@@ -14,7 +14,10 @@ const CustomTooltip: React.FC<TooltipProps<ValueType, NameType>> = ({ active, pa
   if (active && payload && payload.length > 0) {
     const item = payload[0] as PayloadItem;
     return (
-      <div className="custom-tooltip" style={{ background: '#fff', padding: '8px', border: '1px solid #ccc' }}>
+      <div
+        className="custom-tooltip"
+        style={{ background: '#fff', padding: '8px', border: '1px solid #ccc' }}
+      >
         <p>{`${item.payload.name}: ${item.payload.value} ${item.payload.unit}`}</p>
       </div>
     );

@@ -21,7 +21,7 @@ export async function fetchFoodDetails(fdcId: number): Promise<NutrientDetail[]>
   }
   const data = await response.json();
 
-  console.log('Full food detail response:', data);  // Inspect full API response
+  console.log('Full food detail response:', data); // Inspect full API response
   console.log('foodNutrients array sample:', data.foodNutrients?.slice(0, 5)); // First 5 nutrients sample
 
   return data.foodNutrients || [];
@@ -81,23 +81,20 @@ export const nutrientNameMap: Record<string, string[]> = {
 
 export function filterNutrientsByCategory(
   foodNutrients: NutrientDetail[],
-  selectedFilters: string[]
+  selectedFilters: string[],
 ): NutrientDetail[] {
   if (selectedFilters.length === 0) return foodNutrients;
 
-  const keywords = selectedFilters.flatMap(
-    (filter) => nutrientNameMap[filter.toLowerCase()] || []
-  );
+  const keywords = selectedFilters.flatMap((filter) => nutrientNameMap[filter.toLowerCase()] || []);
 
   // console.log('Keywords to filter by:', keywords);
   // console.log('Sample nutrient item:', foodNutrients[0]);
 
   const filtered = foodNutrients.filter((nutrient: NutrientDetail) => {
-    if (!nutrient.nutrientName) return false;  // <-- use nutrientName, NOT nutrient.name
+    if (!nutrient.nutrientName) return false; // <-- use nutrientName, NOT nutrient.name
     const nameLower = nutrient.nutrientName.toLowerCase();
-    return keywords.some((keyword) =>
-      nameLower === keyword.toLowerCase() ||
-      nameLower.includes(keyword.toLowerCase())
+    return keywords.some(
+      (keyword) => nameLower === keyword.toLowerCase() || nameLower.includes(keyword.toLowerCase()),
     );
   });
 

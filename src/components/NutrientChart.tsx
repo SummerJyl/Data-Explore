@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  ResponsiveContainer,
-} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 interface Nutrient {
   nutrientName: string;
@@ -22,8 +14,8 @@ interface NutrientChartProps {
 
 const NutrientChart: React.FC<NutrientChartProps> = ({ nutrients, title }) => {
   const chartData = nutrients
-    .filter(n => typeof n.value === 'number' && !isNaN(n.value))
-    .map(n => ({
+    .filter((n) => typeof n.value === 'number' && !isNaN(n.value))
+    .map((n) => ({
       name: n.nutrientName,
       value: n.value,
       unit: n.unitName,

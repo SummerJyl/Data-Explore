@@ -8,7 +8,8 @@ const faqs = [
   },
   {
     question: 'Where does the nutritional data come from?',
-    answer: 'The data is sourced directly from the USDA FoodData Central API, which is highly reliable.',
+    answer:
+      'The data is sourced directly from the USDA FoodData Central API, which is highly reliable.',
   },
   {
     question: 'How do I search for foods?',

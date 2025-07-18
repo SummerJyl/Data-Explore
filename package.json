@@ -10,10 +10,11 @@
     "predeploy": "npm run build",
     "deploy": "cp dist/index.html dist/404.html && gh-pages -d dist",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "format": "prettier --write ."
   },
   "lint-staged": {
-  "*.{js,jsx,ts,tsx}": "eslint --fix"
+    "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "dependencies": {
     "react": "^19.1.0",
@@ -35,7 +36,7 @@
     "@types/testing-library__react": "^10.2.0",
     "@vitejs/plugin-react": "^4.4.1",
     "babel-jest": "^29.7.0",
-    "eslint": "^9.25.0",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",

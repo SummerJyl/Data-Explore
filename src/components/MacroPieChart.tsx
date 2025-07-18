@@ -14,12 +14,12 @@ interface MacroPieChartProps {
 const COLORS = ['#82ca9d', '#8884d8', '#ffc658']; // Protein, Carbs, Fat
 
 const MacroPieChart: React.FC<MacroPieChartProps> = ({ nutrients }) => {
-console.log('MacroPieChart nutrients:', nutrients); 
+  console.log('MacroPieChart nutrients:', nutrients);
   const macroNames = ['Protein', 'Carbohydrate, by difference', 'Total lipid (fat)'];
 
   const macroData: MacroData[] = nutrients
-    .filter(n => macroNames.includes(n.nutrientName))
-    .map(n => ({
+    .filter((n) => macroNames.includes(n.nutrientName))
+    .map((n) => ({
       name: n.nutrientName,
       value: n.value,
     }));
@@ -31,13 +31,7 @@ console.log('MacroPieChart nutrients:', nutrients);
       <h4 style={{ textAlign: 'center' }}>Macronutrient Breakdown</h4>
       <ResponsiveContainer>
         <PieChart>
-          <Pie
-            data={macroData}
-            dataKey="value"
-            nameKey="name"
-            outerRadius={90}
-            label
-          >
+          <Pie data={macroData} dataKey="value" nameKey="name" outerRadius={90} label>
             {macroData.map((_, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
