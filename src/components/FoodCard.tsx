@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import type { NutrientDetail } from "../api/usdaApi";
 import { fetchFoodDetails, filterNutrientsByCategory } from '../api/usdaApi';
+import NutrientChart from './NutrientChart';
+import MacroPieChart from './MacroPieChart';
+
 // import NutrientChart from './NutrientChart'; // optional
 
 interface Food {
@@ -20,25 +23,32 @@ const FoodCard: React.FC<FoodCardProps> = ({ food, selectedFilters }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleClick = async () => {
-    console.log('FoodCard clicked:', food.description);
-    if (!expanded) {
-      setLoading(true);
-      try {
-        const nutrients = await fetchFoodDetails(food.fdcId);
+  console.log('FoodCard clicked:', food.description);
+  if (!expanded) {
+    setLoading(true);
+    try {
+      const nutrients = await fetchFoodDetails(food.fdcId);
+      console.log('Fetched nutrients:', nutrients);
+      console.log('All nutrient names:', nutrients.map(n => n.nutrientName).join(', '));
+      console.log('Full nutrient list:', nutrients.map(n => `${n.nutrientName}: ${n.value} ${n.unitName}`).join('\n'));
+      console.log('Raw nutrients:', nutrients);
 
-        console.log('Fetched nutrients:', nutrients);
-        const filtered = filterNutrientsByCategory(nutrients, selectedFilters);
-        console.log('Filtered nutrients:', filtered);
 
-        setDetailedNutrients(filtered);
-      } catch (error) {
-        console.error('Failed to fetch nutrient details', error);
-      } finally {
-        setLoading(false);
-      }
+
+      const filtered = filterNutrientsByCategory(nutrients, selectedFilters);
+      console.log('Filtered nutrients:', filtered);
+      
+
+      setDetailedNutrients(nutrients);  // or setDetailedNutrients(nutrients) to bypass filter temporarily
+    } catch (error) {
+      console.error('Failed to fetch nutrient details', error);
+    } finally {
+      setLoading(false);
     }
-    setExpanded(!expanded);
-  };
+  }
+  setExpanded(!expanded);
+};
+
 
   return (
     <div
@@ -52,17 +62,14 @@ const FoodCard: React.FC<FoodCardProps> = ({ food, selectedFilters }) => {
       {loading && <p>Loading nutrients...</p>}
 
       {expanded && detailedNutrients && detailedNutrients.length > 0 ? (
-        <ul>
-  {detailedNutrients.map((nutrient) => (
-    <li key={nutrient.nutrientName}>
-      {nutrient.nutrientName}: {nutrient.value} {nutrient.unitName}
-    </li>
-  ))}
-</ul>
-
-      ) : expanded && <p>No nutrients found for selected filters.</p>}
+        <>
+            <NutrientChart nutrients={detailedNutrients} />
+            <MacroPieChart nutrients={detailedNutrients} />
+        </>
+        ) : (
+        <p>No nutrients found for selected filters.</p>
+        )}
     </div>
-  );
-};
+  )}
 
 export default FoodCard;

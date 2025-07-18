@@ -9,7 +9,11 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "cp dist/index.html dist/404.html && gh-pages -d dist",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+  "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "dependencies": {
     "react": "^19.1.0",
