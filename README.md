@@ -1,9 +1,33 @@
 # 🧬 Bio Health Data Explorer
 
-A React + TypeScript application designed to explore and visualize bio health datasets.
-This project provides an intuitive and responsive interface for analyzing key biological and health-related data.
+"A full-stack healthcare dashboard built with React and Spring Boot, designed to search and analyze nutritional data from the USDA food database. The application visualizes and filters nutritional metrics including protein, fat, carbohydrates, vitamins, and minerals. Inspired by clinical use cases, this project demonstrates secure, scalable data workflows commonly found in regulated environments like MedTech and healthcare systems.
 
 ---
+
+## 🚀 Features
+
+📊 Interactive data visualization for nutritional analysis
+🔍 Advanced search and filtering by nutrient types (protein, vitamins, minerals)
+⚡ Optimized React components with hooks and state management
+📱 Fully responsive design with modern CSS
+✅ Modular and testable component architecture
+🧠 Designed with healthcare-grade security, performance, and data integrity in mind
+---
+
+## 🧩 Tech Stack
+
+| Layer       | Tech Used                                |
+|-------------|------------------------------------------|
+| Frontend    | React 18, CSS Modules or Tailwind, Chart.js/Recharts |
+| Backend     | Spring Boot, Java, RESTful APIs 
+| Data Layer  | USDA FoodData Central API, OpenAPI Integration |
+| Dev Tools   | VS Code, Git/GitHub, Vite |
+| Deployment  | GitHub Pages |
+
+---
+
+## 🔄 App Architecture
+
 
 ## ✨ Features
 
@@ -18,7 +42,6 @@ This project provides an intuitive and responsive interface for analyzing key bi
 ## 🚀 Getting Started
 
 ### Prerequisites
-
 - Node.js (v16 or higher)
 - npm or yarn package manager
 
@@ -26,20 +49,15 @@ This project provides an intuitive and responsive interface for analyzing key bi
 
 ```bash
 # Clone the repository
-git clone https://github.com/SummerJyl/your-bio-health-data-explorer-repo.git
+git clone https://github.com/SummerJyl/Bio-Health-Data-Explorer.git
 
 # Navigate to the project directory
-cd your-bio-health-data-explorer-repo
+cd Bio-Health-Data-Explorer
 
 # Install dependencies
 npm install
 
 # Start development server
 npm run dev
-1. Clone the repository:
 
 
-
-
-
-```
