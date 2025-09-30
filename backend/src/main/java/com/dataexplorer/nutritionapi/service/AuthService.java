@@ -1,18 +1,15 @@
 package com.dataexplorer.nutritionapi.service;
 
-public class AuthService {
-
-package com.dataexplorer.nutritionapi.service;
-
-import com.dataexplorer.nutritionapi.model.User;
-import com.dataexplorer.nutritionapi.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dataexplorer.nutritionapi.model.User;
+import com.dataexplorer.nutritionapi.repository.UserRepository;
 
 @Service
 public class AuthService {
