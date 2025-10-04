@@ -39,21 +39,36 @@ A nutrition tracking application that allows users to explore USDA food database
 
 ## Phase 2: Enhanced Food Search & Exploration
 
-### Week 4: Advanced Search Features
+### Week 4: Macro Filter Implementation
 
-- [ ] Add filter UI (checkboxes/dropdowns) for nutrient categories
-  - [ ] Protein, Fat, Carbs
-  - [ ] Vitamins, Minerals
-- [ ] Implement filter logic in backend
-- [ ] Show active filters as removable chips
-- [ ] Add "clear all filters" functionality
+- [ ] Design filter UI component (4 checkboxes: High Protein, High Carbs, High Fat, Low Calorie)
+- [ ] Add filter state management to Home component
+- [ ] Define filter thresholds:
+  - High Protein: >20g per 100g
+  - High Carbs: >40g per 100g  
+  - High Fat: >20g per 100g
+  - Low Calorie: <100 kcal per 100g
+- [ ] Implement frontend filtering logic on search results
+- [ ] Display active filters as removable chips
+- [ ] Add "Clear All Filters" button
+- [ ] Test filter combinations
 
 ### Week 5: Search UX Improvements
 
-- [ ] Add loading states for searches
-- [ ] Handle empty results gracefully
-- [ ] Implement pagination for search results
-- [ ] Add food detail view (modal or separate page)
+- [ ] Add loading states for searches (spinner/skeleton)
+- [ ] Handle empty results gracefully with helpful messaging
+- [ ] Improve pagination (refine existing "Show More" button)
+- [ ] Add total results count display
+- [ ] Implement search result sorting (by relevance, protein, calories)
+- [ ] Add food detail modal or page for full nutrient breakdown
+- [ ] Style improvements for better mobile experience
+
+### Week 6: Advanced Filtering (Optional)
+
+- [ ] Add numeric range inputs for custom thresholds
+- [ ] Implement "Save Filter Preset" functionality
+- [ ] Add specific micronutrient filters if user feedback indicates need
+- [ ] Filter history/recent searches
 
 ## Phase 3: Food Logging & Tracking
 
@@ -69,140 +84,122 @@ A nutrition tracking application that allows users to explore USDA food database
 - [ ] Add "Log This Food" button to search results
 - [ ] Create food diary page showing logged foods
 - [ ] Display daily totals (calories, macros)
-- [ ] Add abil# BHDE Nutrition Tracker - Development Plan
+- [ ] Add ability to delete logged foods
 
-## Project Overview
-
-Building a nutrition tracking application that allows users to search USDA food database, set nutrition goals, and track their daily consumption.
-
-## Current Status - 09/30/2025
-
-- ✅ Spring Boot setup complete
-- ✅ Basic project structure (controller/model/repository/service)
-- ✅ USDA food database integration
-- ⏳ User authentication (pending verification)
-
-## Build Roadmap
-
-### Week 1: User Entity + Authentication
-
-- [ ] User model with basic fields
-- [ ] User repository
-- [ ] Authentication service
-- [ ] Login/registration endpoints
-
-### Week 2: NutritionGoal Entity + Endpoints
-
-- [ ] Design NutritionGoal model
-- [ ] Create entity class with annotations
-- [ ] Build repository interface
-- [ ] Implement service layer (CRUD)
-- [ ] Create controller endpoints
-- [ ] Test with sample data
-
-### Week 3: FoodItem Entity (USDA Data)
-
-- [ ] FoodItem model matching USDA structure
-- [ ] Repository and service layer
-- [ ] Search/filter endpoints
-- [ ] Integration with USDA API
-
-### Week 4: FoodLog Entity (Consumption Tracking)
-
-- [ ] FoodLog model (user logs meals)
-- [ ] Repository and service layer
-- [ ] Logging endpoints
-- [ ] Link to FoodItem and User
-
-### Week 5: Progress Calculation Logic
+### Week 8: Progress Tracking
 
 - [ ] Calculate daily totals from FoodLog
-- [ ] Compare against NutritionGoal
-- [ ] Progress percentage calculations
-- [ ] Dashboard/summary endpoints
+- [ ] Compare actual vs NutritionGoal
+- [ ] Display progress percentages
+- [ ] Add color coding (green = met goal, red = over/under)
+
+## Phase 4: Data Visualization & Dashboard
+
+### Week 9: Basic Charts
+
+- [ ] Install chart library (recharts or chart.js)
+- [ ] Create nutrient breakdown pie chart for single food
+- [ ] Create daily progress bar charts
+- [ ] Add weekly trend line graphs
+
+### Week 10: Dashboard Page
+
+- [ ] Build main dashboard layout
+- [ ] Summary cards with key metrics
+- [ ] Quick stats (calories today, goal progress)
+- [ ] Recent food logs preview
+
+### Week 11: Advanced Visualizations
+
+- [ ] Historical trends (past 7/30 days)
+- [ ] Nutrient comparison charts
+- [ ] Goal achievement streaks
+- [ ] Export data functionality
+
+## Phase 5: User Experience Enhancements
+
+### Week 12: Saved Foods & Favorites
+
+- [ ] Add "favorite" functionality to foods
+- [ ] Create saved foods page
+- [ ] Quick-add from favorites
+- [ ] Manage saved searches
+
+### Week 13: Mobile Optimization
+
+- [ ] Responsive layout testing
+- [ ] Mobile-friendly filter panel
+- [ ] Touch-optimized controls
+- [ ] Test on various screen sizes
+
+### Week 14: Accessibility
+
+- [ ] Add ARIA labels
+- [ ] Keyboard navigation support
+- [ ] Screen reader testing
+- [ ] Color contrast compliance
+
+## Phase 6: Polish & Testing
+
+### Week 15: Testing
+
+- [ ] Unit tests for backend services
+- [ ] Integration tests for API endpoints
+- [ ] Frontend component tests
+- [ ] End-to-end user flow tests
+
+### Week 16: Documentation
+
+- [ ] Expand README with setup instructions
+- [ ] API documentation
+- [ ] Component documentation
+- [ ] User guide
 
 ## Daily Practice Strategy
 
 - **Time commitment:** 30-60 minutes per day
-- **Goal:** One small commit per day minimum
-- **Focus:** Keep momentum, stay interview-ready
+- **Goal:** One small task per day minimum
+- **Focus:** Complete one feature fully before moving to next
 - **Track:** Check off tasks as completed
+- **Commit:** Push code daily to maintain momentum
 
-## Current Focus: NutritionGoal Entity
+## Current Sprint: Phase 1, Week 1
 
-### NutritionGoal Model Design
+**Goal:** Show logged-in user info on Home page with logout capability
 
-```java
-@Entity
-@Table(name = "nutrition_goals")
-public class NutritionGoal {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(nullable = false)
-    private Long userId;  // FK to User
-    
-    @Enumerated(EnumType.STRING)
-    private GoalType goalType;  // DAILY, WEEKLY
-    
-    private Integer targetCalories;
-    private Integer targetProtein;   // grams
-    private Integer targetCarbs;     // grams
-    private Integer targetFat;       // grams
-    
-    private LocalDate startDate;
-    private LocalDate endDate;       // null = ongoing
-    
-    @Column(nullable = false)
-    private Boolean isActive = true;
-    
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-}
-```
+**This Week's Tasks:**
 
-### Implementation Checklist
+1. Update Home.tsx to read user from localStorage
+2. Display "Welcome, [firstName]!" message
+3. Add logout button that clears localStorage
+4. Redirect to login if not authenticated
+5. Test the complete login → home → logout flow
 
-- [ ] Create NutritionGoal entity class
-- [ ] Create GoalType enum (DAILY, WEEKLY)
-- [ ] Create NutritionGoalRepository interface
-- [ ] Implement NutritionGoalService
-  - [ ] createGoal()
-  - [ ] getGoalByUserId()
-  - [ ] updateGoal()
-  - [ ] deleteGoal()
-  - [ ] getActiveGoal()
-- [ ] Create NutritionGoalController
-  - [ ] POST /api/goals (create)
-  - [ ] GET /api/goals/{userId} (retrieve)
-  - [ ] PUT /api/goals/{id} (update)
-  - [ ] DELETE /api/goals/{id} (delete)
-- [ ] Write tests
-- [ ] Test with Postman/curl
+## User Flow (Complete Vision)
 
-## User Flow
-
-1. User logs in / creates account
-2. User sets nutrition goals (daily targets)
-3. User searches USDA food database
-4. User filters by: Protein | Fat | Carbs | Vitamins | Minerals
-5. User logs foods consumed
-6. App shows progress toward goals
+1. User logs in / creates account ✅
+2. User sets nutrition goals (daily calorie/macro targets)
+3. User searches USDA food database with advanced filters
+4. User views detailed nutrition info for specific foods
+5. User logs foods they consumed
+6. App calculates daily totals and compares to goals
+7. Dashboard shows progress with charts and visualizations
+8. User can view historical trends and saved favorites
 
 ## Interview Talking Points
 
-- RESTful API design decisions
-- Data modeling for nutrition tracking
-- Database relationships and foreign keys
-- Service layer architecture
-- USDA API integration patterns
-- Progress calculation algorithms
+- Full-stack application with React + Spring Boot
+- RESTful API design and authentication
+- Complex data relationships (User → Goals → FoodLogs → FoodItems)
+- Real-world integration with USDA API
+- Data visualization and user analytics
+- Responsive, accessible UI design
+- Test-driven development practices
 
 ## Notes
 
 - Keep commits small and focused
 - Write clear commit messages
 - Document design decisions
-- Focus on one feature at a time
-- Build iteratively, test frequently
+- Build features iteratively, test frequently
+- Don't try to build everything at once - one feature at a time!

@@ -13,13 +13,25 @@ interface UserData {
 
 const Home = () => {
   const [user, setUser] = useState<UserData | null>(null);
-  const [query, setQuery] = useState('Vitamin D');
+  const [query, setQuery] = useState('');
   const [foods, setFoods] = useState<FoodDetails[]>([]);
+  const [allFoods, setAllFoods] = useState<FoodDetails[]>([]); // Store unfiltered results
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(10);
   const [selectedFood, setSelectedFood] = useState<FoodDetails | null>(null);
   const [selectedFoodNutrients, setSelectedFoodNutrients] = useState<NutrientDetail[]>([]);
+  
+  // Filter state
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  
+  const filterOptions = [
+    { id: 'highProtein', label: 'High Protein (>20g/100g)' },
+    { id: 'highCarbs', label: 'High Carbs (>40g/100g)' },
+    { id: 'highFat', label: 'High Fat (>20g/100g)' },
+    { id: 'lowCalorie', label: 'Low Calorie (<100 kcal/100g)' }
+  ];
+
   const navigate = useNavigate();
 
   // Check if user is logged in on component mount
@@ -51,7 +63,8 @@ const Home = () => {
       if (results.length === 0) {
         setError('No results found');
       }
-      setFoods(results);
+      setAllFoods(results); // Store all results
+      applyFilters(results, activeFilters); // Apply current filters
       setSelectedFood(null);
       setSelectedFoodNutrients([]);
     } catch {
@@ -59,6 +72,34 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const toggleFilter = (filterId: string) => {
+    const newFilters = activeFilters.includes(filterId)
+      ? activeFilters.filter(f => f !== filterId)
+      : [...activeFilters, filterId];
+    
+    setActiveFilters(newFilters);
+    applyFilters(allFoods, newFilters);
+  };
+
+  const clearAllFilters = () => {
+    setActiveFilters([]);
+    setFoods(allFoods);
+    setVisibleCount(10);
+  };
+
+  const applyFilters = (foodList: FoodDetails[], filters: string[]) => {
+    if (filters.length === 0) {
+      setFoods(foodList);
+      setVisibleCount(10);
+      return;
+    }
+
+    // Filter logic will be implemented based on nutrient data
+    // For now, just show all results (we'll add actual filtering in next step)
+    setFoods(foodList);
+    setVisibleCount(10);
   };
 
   const handleFoodClick = async (food: FoodDetails) => {
@@ -93,20 +134,36 @@ const Home = () => {
                 {user.email}
               </p>
             </div>
-            <button
-              onClick={handleLogout}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: '#dc3545',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontSize: '0.9rem'
-              }}
-            >
-              Logout
-            </button>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <button
+                onClick={() => navigate('/goals')}
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: '#28a745',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem'
+                }}
+              >
+                My Goals
+              </button>
+              <button
+                onClick={handleLogout}
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: '#dc3545',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem'
+                }}
+              >
+                Logout
+              </button>
+            </div>
           </>
         ) : (
           <>
@@ -146,6 +203,67 @@ const Home = () => {
       </div>
 
       <h1>Bio Health Data Explorer</h1>
+      
+      {/* Filter Section */}
+      {user && (
+        <div style={{
+          backgroundColor: '#fff',
+          padding: '1rem',
+          borderRadius: '8px',
+          marginBottom: '1rem',
+          border: '1px solid #dee2e6'
+        }}>
+          <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1rem' }}>Filter by Nutrients:</h3>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center' }}>
+            {filterOptions.map(filter => (
+              <label
+                key={filter.id}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.5rem 0.75rem',
+                  backgroundColor: activeFilters.includes(filter.id) ? '#e7f3ff' : '#f8f9fa',
+                  border: activeFilters.includes(filter.id) ? '2px solid #007bff' : '1px solid #dee2e6',
+                  borderRadius: '20px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem',
+                  transition: 'all 0.2s'
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={activeFilters.includes(filter.id)}
+                  onChange={() => toggleFilter(filter.id)}
+                  style={{ cursor: 'pointer' }}
+                />
+                {filter.label}
+              </label>
+            ))}
+            {activeFilters.length > 0 && (
+              <button
+                onClick={clearAllFilters}
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: '#6c757d',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '20px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem'
+                }}
+              >
+                Clear All
+              </button>
+            )}
+          </div>
+          {activeFilters.length > 0 && (
+            <p style={{ margin: '0.75rem 0 0 0', fontSize: '0.85rem', color: '#666' }}>
+              {activeFilters.length} filter{activeFilters.length > 1 ? 's' : ''} active
+            </p>
+          )}
+        </div>
+      )}
       
       <form onSubmit={handleSearch} className="search-container">
         <input
