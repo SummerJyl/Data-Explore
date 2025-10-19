@@ -13,6 +13,17 @@ export interface FoodDetails {
   dataType: string;
   foodNutrients: NutrientDetail[];
 }
+interface FoodNutrientResponse {
+  nutrient: {
+    name: string;
+    unitName: string;
+    id: number;
+    number: string;
+  };
+  amount: number;
+  type: string;
+  id: number;
+}
 
 export async function fetchFoodDetails(fdcId: number): Promise<NutrientDetail[]> {
   const response = await fetch(`${BASE_URL}/${fdcId}?api_key=${apiKey}`);
@@ -21,10 +32,19 @@ export async function fetchFoodDetails(fdcId: number): Promise<NutrientDetail[]>
   }
   const data = await response.json();
 
-  console.log('Full food detail response:', data); // Inspect full API response
-  console.log('foodNutrients array sample:', data.foodNutrients?.slice(0, 5)); // First 5 nutrients sample
+  console.log('Full food detail response:', data);
+  console.log('foodNutrients array sample:', data.foodNutrients?.slice(0, 5));
 
-  return data.foodNutrients || [];
+  // Transform the API response to match the NutrientDetail interface
+  const nutrients = data.foodNutrients?.map((fn: FoodNutrientResponse) => ({
+    nutrientName: fn.nutrient?.name || 'Unknown',
+    value: fn.amount || 0,
+    unitName: fn.nutrient?.unitName || ''
+  })) || [];
+
+  console.log('Transformed nutrients sample:', nutrients.slice(0, 5));
+
+  return nutrients;
 }
 
 // Fetch food search results by query and optional filters

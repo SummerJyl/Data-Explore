@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchFoodData, fetchFoodDetails } from '../api/usdaApi';
 import type { FoodDetails, NutrientDetail } from '../api/usdaApi';
 import NutrientChart from '../components/NutrientChart';
+import MacroPieChart from '../components/MacroPieChart';
 
 interface UserData {
   userId: number;
@@ -279,15 +280,8 @@ const Home = () => {
                 {filter.label}
               </label>
             ))}
-            
-            // REPLACE THIS SECTION in Home.tsx:
+          </div>          
 
-// Find and REPLACE from the closing of filterOptions.map to just before the search form
-// (Remove the old Clear All button and active filter count)
-
-            ))}
-          </div>
-          
           {/* Active Filter Chips Section */}
           {activeFilters.length > 0 && (
             <div style={{
@@ -431,13 +425,52 @@ const Home = () => {
       )}
 
       {selectedFood && selectedFoodNutrients.length > 0 && (
-        <section className="nutrient-chart-container">
-          <h2>{selectedFood.description} - Nutrients</h2>
-          <NutrientChart nutrients={selectedFoodNutrients} />
-        </section>
-      )}
-    </main>
-  );
+  <section className="nutrient-chart-container" style={{ 
+    padding: '2rem',
+    backgroundColor: '#fff',
+    borderRadius: '8px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    marginTop: '2rem'
+  }}>
+    <h2 style={{ 
+      textAlign: 'center',
+      marginBottom: '2rem',
+      color: '#2c3e50'
+    }}>
+      {selectedFood.description} - Nutrient Analysis
+    </h2>
+    
+    {/* Side-by-side chart container */}
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+      gap: '2rem',
+      marginBottom: '2rem'
+    }}>
+      {/* Macro Pie Chart */}
+      <div style={{
+        padding: '1.5rem',
+        backgroundColor: '#f8f9fa',
+        borderRadius: '8px',
+        border: '1px solid #dee2e6'
+      }}>
+        <MacroPieChart nutrients={selectedFoodNutrients} />
+      </div>
+      
+      {/* Nutrient Bar Chart */}
+      <div style={{
+        padding: '1.5rem',
+        backgroundColor: '#f8f9fa',
+        borderRadius: '8px',
+        border: '1px solid #dee2e6'
+      }}>
+        <NutrientChart nutrients={selectedFoodNutrients} title="All Nutrients" />
+      </div>
+    </div>
+  </section>
+)}
+</main>
+);
 };
 
 export default Home;
