@@ -279,31 +279,124 @@ const Home = () => {
                 {filter.label}
               </label>
             ))}
-            {activeFilters.length > 0 && (
-              <button
-                onClick={clearAllFilters}
-                style={{
-                  padding: '0.5rem 1rem',
-                  backgroundColor: '#6c757d',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '20px',
-                  cursor: 'pointer',
-                  fontSize: '0.9rem'
-                }}
-              >
-                Clear All
-              </button>
-            )}
+            
+            // REPLACE THIS SECTION in Home.tsx:
+
+// Find and REPLACE from the closing of filterOptions.map to just before the search form
+// (Remove the old Clear All button and active filter count)
+
+            ))}
           </div>
+          
+          {/* Active Filter Chips Section */}
           {activeFilters.length > 0 && (
-            <p style={{ margin: '0.75rem 0 0 0', fontSize: '0.85rem', color: '#666' }}>
-              {activeFilters.length} filter{activeFilters.length > 1 ? 's' : ''} active
-            </p>
+            <div style={{
+              marginTop: '1rem',
+              padding: '1rem',
+              backgroundColor: '#f8f9fa',
+              borderRadius: '8px',
+              border: '1px solid #dee2e6'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '0.75rem'
+              }}>
+                <span style={{ 
+                  fontSize: '0.9rem', 
+                  fontWeight: '600',
+                  color: '#495057'
+                }}>
+                  Active Filters ({activeFilters.length})
+                </span>
+                <button
+                  onClick={clearAllFilters}
+                  style={{
+                    padding: '0.5rem 1.25rem',
+                    backgroundColor: '#dc3545',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '20px',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem',
+                    fontWeight: '600',
+                    transition: 'all 0.2s',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#c82333';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                    e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#dc3545';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                  }}
+                >
+                  Clear All
+                </button>
+              </div>
+              
+              {/* Individual Filter Chips */}
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '0.5rem'
+              }}>
+                {activeFilters.map(filterId => {
+                  const filter = filterOptions.find(f => f.id === filterId);
+                  return (
+                    <div
+                      key={filterId}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        padding: '0.5rem 0.75rem',
+                        backgroundColor: '#007bff',
+                        color: 'white',
+                        borderRadius: '20px',
+                        fontSize: '0.85rem',
+                        fontWeight: '500',
+                        boxShadow: '0 2px 4px rgba(0,123,255,0.3)'
+                      }}
+                    >
+                      <span>{filter?.label}</span>
+                      <button
+                        onClick={() => toggleFilter(filterId)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: 'white',
+                          cursor: 'pointer',
+                          fontSize: '1.2rem',
+                          lineHeight: '1',
+                          padding: '0',
+                          display: 'flex',
+                          alignItems: 'center',
+                          fontWeight: 'bold',
+                          transition: 'transform 0.2s'
+                        }}
+                        aria-label={`Remove ${filter?.label} filter`}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.3)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           )}
         </div>
       )}
-      
       <form onSubmit={handleSearch} className="search-container">
         <input
           type="text"
