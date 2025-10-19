@@ -96,9 +96,48 @@ const Home = () => {
       return;
     }
 
-    // Filter logic will be implemented based on nutrient data
-    // For now, just show all results (we'll add actual filtering in next step)
-    setFoods(foodList);
+    const filtered = foodList.filter(food => {
+      // Extract nutrient values (per 100g)
+      const nutrients = food.foodNutrients || [];
+      
+      const protein = nutrients.find(n => 
+        n.nutrientName?.toLowerCase() === 'protein'
+      )?.value || 0;
+      
+      const carbs = nutrients.find(n => 
+        n.nutrientName?.toLowerCase().includes('carbohydrate')
+      )?.value || 0;
+      
+      const fat = nutrients.find(n => 
+        n.nutrientName?.toLowerCase().includes('total lipid') ||
+        n.nutrientName?.toLowerCase() === 'fat'
+      )?.value || 0;
+      
+      const calories = nutrients.find(n => 
+        n.nutrientName?.toLowerCase() === 'energy' ||
+        n.nutrientName?.toLowerCase().includes('energy')
+      )?.value || 0;
+
+      // Check each active filter
+      let matches = true;
+      
+      if (filters.includes('highProtein')) {
+        matches = matches && protein > 20;
+      }
+      if (filters.includes('highCarbs')) {
+        matches = matches && carbs > 40;
+      }
+      if (filters.includes('highFat')) {
+        matches = matches && fat > 20;
+      }
+      if (filters.includes('lowCalorie')) {
+        matches = matches && calories < 100;
+      }
+
+      return matches;
+    });
+
+    setFoods(filtered);
     setVisibleCount(10);
   };
 
