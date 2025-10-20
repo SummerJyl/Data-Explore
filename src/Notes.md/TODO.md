@@ -17,10 +17,10 @@ A nutrition tracking application that allows users to explore USDA food database
 
 ### Week 1: Display Logged-In User
 
-- [ ] Update Home.tsx to show user info when authenticated
-- [ ] Add logout button
-- [ ] Add navigation to login/register when not logged in
-- [ ] Style user profile section
+- ✅ Update Home.tsx to show user info when authenticated
+- ✅ Add logout button
+- ✅ Add navigation to login/register when not logged in
+- ✅ Style user profile section
 
 ### Week 2: NutritionGoal Backend
 
@@ -32,35 +32,35 @@ A nutrition tracking application that allows users to explore USDA food database
 
 ### Week 3: NutritionGoal Frontend
 
-- [ ] Create Goals page component
-- [ ] Build form to set/edit nutrition goals
-- [ ] Display current goals on dashboard
-- [ ] Add goal validation and error handling
+- ✅ Create Goals page component
+- ✅ Build form to set/edit nutrition goals
+- ✅ Display current goals on dashboard
+- ✅ Add goal validation and error handling
 
 ## Phase 2: Enhanced Food Search & Exploration
 
 ### Week 4: Macro Filter Implementation
 
-- [ ] Design filter UI component (4 checkboxes: High Protein, High Carbs, High Fat, Low Calorie)
-- [ ] Add filter state management to Home component
-- [ ] Define filter thresholds:
+- ✅ Design filter UI component (4 checkboxes: High Protein, High Carbs, High Fat, Low Calorie)
+- ✅ Add filter state management to Home component
+- ✅ Define filter thresholds:
   - High Protein: >20g per 100g
   - High Carbs: >40g per 100g  
   - High Fat: >20g per 100g
   - Low Calorie: <100 kcal per 100g
-- [ ] Implement frontend filtering logic on search results
-- [ ] Display active filters as removable chips
-- [ ] Add "Clear All Filters" button
-- [ ] Test filter combinations
+- ✅ Implement frontend filtering logic on search results
+- ✅ Display active filters as removable chips
+- ✅ Add "Clear All Filters" button
+- ✅ Test filter combinations
 
 ### Week 5: Search UX Improvements
 
-- [ ] Add loading states for searches (spinner/skeleton)
-- [ ] Handle empty results gracefully with helpful messaging
-- [ ] Improve pagination (refine existing "Show More" button)
+- ✅ Add loading states for searches (spinner/skeleton)
+- ✅ Handle empty results gracefully with helpful messaging
+- ✅ Improve pagination (refine existing "Show More" button)
 - [ ] Add total results count display
 - [ ] Implement search result sorting (by relevance, protein, calories)
-- [ ] Add food detail modal or page for full nutrient breakdown
+- ✅ Add food detail modal or page for full nutrient breakdown
 - [ ] Style improvements for better mobile experience
 
 ### Week 6: Advanced Filtering (Optional)
@@ -97,8 +97,9 @@ A nutrition tracking application that allows users to explore USDA food database
 
 ### Week 9: Basic Charts
 
-- [ ] Install chart library (recharts or chart.js)
-- [ ] Create nutrient breakdown pie chart for single food
+- ✅  Install chart library (recharts or chart.js)
+- ✅  Create nutrient breakdown pie chart for single food
+- ✅  Create nutrient bar chart with filtering 
 - [ ] Create daily progress bar charts
 - [ ] Add weekly trend line graphs
 
