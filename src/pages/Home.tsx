@@ -397,8 +397,34 @@ const Home = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search foods..."
+          style={{
+          padding: '0.75rem 1rem',
+          fontSize: '1rem',
+          borderRadius: '6px',
+          border: '1px solid #ccc',
+          boxSizing: 'border-box',
+          height: '3rem',
+          margin: '0' , 
+          }}
         />
-        <button type="submit">Search</button>
+        <button 
+          type="submit"
+          style={{
+          padding: '0.75rem 1rem',
+          fontSize: '1rem',
+          borderRadius: '6px',
+          border: 'none',
+          backgroundColor: '#2c7a7b',
+          color: 'white',
+          fontWeight: '600',
+          cursor: 'pointer',
+          boxSizing: 'border-box',
+          height: '3rem',
+          margin: '0',  
+        }}
+      >
+        Search
+      </button>
       </form>
 
       {loading && <p>Loading...</p>}
